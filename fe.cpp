@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
         char algorithm = sortArgs[1][0]; //n(name), s(size), t(modified_time)
       
         if((method != 'q' && method != 'm' && method != 'h') || (algorithm != 'n'&& algorithm != 's'&& algorithm != 't'))
-            cout<<"wrong argument QWER"<<endl;
+            cout<<"wrong argument"<<endl;
         else if(FileAPIInstance.printSortedArr(method,algorithm) == -1){
             cout<<"wrong argument"<<endl;
         }

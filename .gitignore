@@ -142,3 +142,11 @@ DerivedData/
 # Visual Studio Code 설정 파일들
 .vscode/
 *.code-workspace
+
+# cmake
+*.cmake
+*.tcl
+
+# binary
+fe
+newtest
