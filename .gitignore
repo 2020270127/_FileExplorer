@@ -34,3 +34,111 @@
 # custom
 /.vscode
 /build
+
+# macOS 관련 항목들
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS 파일들이 특정 폴더에만 생성되는 경우
+*/.DS_Store
+*/.AppleDouble
+*/.LSOverride
+
+# macOS 응답 파일들
+._*
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.DDStore
+.fseventsd
+
+# macOS 자동 저장 파일들
+*~.sav
+*~.swp
+*~.tmp
+*.swm
+
+# CMake 관련 파일들
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+
+# 빌드 출력물
+/build/
+/out/
+/bin/
+/obj/
+/*.o
+/*.obj
+/*.so
+/*.dll
+/*.dylib
+/*.exe
+
+# 빌드 시스템에서 사용하는 임시 파일들
+*.log
+*.pid
+*.seed
+*.bbl
+*.blg
+
+# Xcode 관련 파일들
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+
+# 타사 라이브러리
+/Pods/
+/Carthage/
+/Carthage/Checkouts
+/Carthage/Build
+
+# Swift Package Manager
+/.build/
+/Package.resolved
+
+# Cocoapods
+/.cocoapods/
+
+# Fastlane
+/fastlane/report.xml
+/fastlane/Preview.html
+/fastlane/screenshots
+/fastlane/test_output
+
+# 기타 설정 파일들
+*.xcworkspace
+*.xcuserdatad
+*.playground
+
+# Vim swap files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+[._]ss[a-z]
+[._]sw[a-z]
+[._]s[a-z]
+
+# Sublime Text 설정 파일들
+*.sublime-project
+*.sublime-workspace
+
+# JetBrains IDE 설정 파일들
+.idea/
+
+# Visual Studio Code 설정 파일들
+.vscode/
+*.code-workspace
