@@ -5,14 +5,18 @@ FileExplorer Team6
 
 ## How to build
 ### Linux
+```
 mkdir build && cd build  
 cmake ..  
 make
+```
 
 ### Window
+```
 mkdir build && cd build  
 cmake -G "Unix Makefiles" ..    
 make
+```
 
 ## How to use
 Usage: FileExplorer [--help] [--version] [-dir] [-mkdir VAR] [-rm VAR] [-touch VAR] [-cp VAR...] [-mv VAR...] [-sort VAR...] [-ss VAR...] [-path VAR]
