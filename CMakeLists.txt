@@ -1,30 +1,37 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(fe VERSION 0.1.0)
+project(fe VERSION 1.0.0)
 
 include(CTest)
 enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
+
+add_library(
+    fe_library SHARED
+    Algorithm/fileinfo.cpp
+    Algorithm/search.cpp
+)
+
+if(WIN32)
+    target_compile_definitions(fe_library PRIVATE FE_EXPORTS)
+endif()
 
 add_executable(
     fe fe.cpp
-    Algorithm/fileinfo.cpp
-    Algorithm/sort.hpp
-    Algorithm/search.cpp
 )
+target_link_libraries(fe fe_library)
 
 add_executable(
-    newtest test.cpp
-    Algorithm/fileinfo.cpp
-    Algorithm/sort.hpp
-    Algorithm/search.cpp
+    fe_test test.cpp
 )
+target_link_libraries(fe_test fe_library)
 
 add_compile_options(-Wall)
 
 add_custom_target(clean-all
-    COMMAND ${CMAKE_COMMAND} -E rm -rf CMakeFiles CMakeCache.txt *.cmake fe newtest
+    COMMAND ${CMAKE_COMMAND} -E rm -rf CMakeFiles CMakeCache.txt *.cmake fe fe_test fe_library
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Cleaning all generated files"
 )

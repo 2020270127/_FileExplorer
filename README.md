@@ -4,7 +4,14 @@
 FileExplorer Team6
 
 ## How to build
-cmake CmakeLists.txt  
+### Linux
+mkdir build && cd build  
+cmake ..  
+make
+
+### Window
+mkdir build && cd build  
+cmake -G "Unix Makefiles" ..    
 make
 
 ## How to use

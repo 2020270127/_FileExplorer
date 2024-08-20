@@ -20,7 +20,15 @@
 #define STRSTR 1
 #endif
 
-
+#ifdef _WIN32
+    #ifdef FE_EXPORTS
+        #define FE_API __declspec(dllexport)
+    #else
+        #define FE_API __declspec(dllimport)
+    #endif
+#else
+    #define FE_API
+#endif
 
 namespace file_engine{
     namespace fs = std::filesystem;
@@ -36,7 +44,11 @@ namespace file_engine{
                     uintmax_t size;
                     bool is_directory;
                     time_t modified_time;
+#ifdef _WIN32
+                    struct _stat64i32 st;
+#else
                     struct stat st;
+#endif
                     };
             void printAInfo(FileInfo *info_array);
             void printInfo(FileInfo *info_array, int size);

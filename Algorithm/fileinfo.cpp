@@ -32,6 +32,7 @@
 
 using namespace file_engine;
 using namespace search_engine;
+using namespace std;
 
 FileAPI::FileAPI(){};
 FileAPI::~FileAPI(){};
@@ -40,19 +41,19 @@ void FileAPI::printInfo(FileInfo *info_array, int size) {
     const int fieldWidth = 25;
 
     for (int i = 0; i < size; i++) {
-        std::ostringstream oss;
+        ostringstream oss;
       
-        oss << "Name: " << std::left << std::setw(fieldWidth)
-            << info_array[i].name << "Size: " << std::left
-            << std::setw(fieldWidth) << info_array[i].size
-            << "Modified time: " << std::left
-            << std::put_time(std::localtime(&(info_array[i].modified_time)),
-                             "%c") <<std::endl
-            << "Type: " << std::left << std::setw(fieldWidth)
+        oss << "Name: " << left << setw(fieldWidth)
+            << info_array[i].name << "Size: " << left
+            << setw(fieldWidth) << info_array[i].size
+            << "Modified time: " << left
+            << put_time(localtime(&(info_array[i].modified_time)),
+                             "%c") <<endl
+            << "Type: " << left << setw(fieldWidth)
             << (info_array[i].is_directory ? "directory" : "file")
-            << "Path: " << std::left << std::setw(fieldWidth)
+            << "Path: " << left << setw(fieldWidth)
             << info_array[i].path;
-        std::cout << oss.str() << std::endl << std::endl;
+        cout << oss.str() << endl << endl;
     }
    
     delete[] info_array;
@@ -62,20 +63,20 @@ void FileAPI::printAInfo(FileInfo *info_array) {
     const int fieldWidth = 27;
 
 
-    std::ostringstream oss;
+    ostringstream oss;
     
-    oss << "Name: " << std::left << std::setw(fieldWidth)
-        << info_array->name << "Size: " << std::left
-        << std::setw(fieldWidth) << info_array->size
-        << "Modified time: " << std::left
-        << std::put_time(std::localtime(&(info_array->modified_time)),
-                            "%c") <<std::endl
-        << "Type: " << std::left << std::setw(fieldWidth)
+    oss << "Name: " << left << setw(fieldWidth)
+        << info_array->name << "Size: " << left
+        << setw(fieldWidth) << info_array->size
+        << "Modified time: " << left
+        << put_time(localtime(&(info_array->modified_time)),
+                            "%c") <<endl
+        << "Type: " << left << setw(fieldWidth)
         << (info_array->is_directory ? "directory" : "file")
-        << "Path: " << std::left << std::setw(fieldWidth)
+        << "Path: " << left << setw(fieldWidth)
             << info_array->path;
 
-    std::cout << oss.str() << std::endl << std::endl;
+    cout << oss.str() << endl << endl;
 
    
     delete info_array;
@@ -103,8 +104,12 @@ FileAPI::FileInfo* FileAPI::getInfoArray() {
         if (entry.is_regular_file() || entry.is_directory()) {
             info_array[i].name = entry.path().filename().string();
             info_array[i].size = entry.is_directory() ? 0 : entry.file_size();
+#ifdef _WIN32
+            if (_wstat(entry.path().c_str(), &info_array->st) != 0) {
+#else
             if(stat(entry.path().c_str(),&info_array->st) != 0){
-                 std::cout << "Failed to get file status" << std::endl;
+#endif
+                 cout << "Failed to get file status" << endl;
             }
             info_array[i].modified_time = info_array->st.st_mtime;
             info_array[i].is_directory = entry.is_directory();
@@ -124,8 +129,12 @@ FileAPI::FileInfo* FileAPI::getInfo(fs::path filepath) {
     if (entry.is_regular_file() || entry.is_directory()) {
         info->name = entry.path().filename().string(); 
         info->size = entry.is_directory() ? 0 : entry.file_size();
+#ifdef _WIN32
+            if (_wstat(entry.path().c_str(), &(info->st)) != 0) {
+#else
             if (stat(entry.path().c_str(), &(info->st)) != 0) {
-            std::cout << "Failed to get file status" << std::endl;
+#endif
+            cout << "Failed to get file status" << endl;
         }
         info->modified_time = info->st.st_mtime;
         info->is_directory = entry.is_directory();
@@ -223,7 +232,7 @@ int FileAPI::printSearchedInDir(fs::path const &dirpath, string pattern, int met
     return 0;
 }
 
-void FileAPI::searchFile(const fs::path& p, const std::string& target, int method, int algorithm){
+void FileAPI::searchFile(const fs::path& p, const string& target, int method, int algorithm){
     SearchAPI SearchAPIInstance;
     switch(method){
         case BFS:

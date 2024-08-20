@@ -17,7 +17,17 @@
 #define STRSTR 1
 #endif
 
+#include <queue>
 
+#ifdef _WIN32
+    #ifdef FE_EXPORTS
+        #define FE_API __declspec(dllexport)
+    #else
+        #define FE_API __declspec(dllimport)
+    #endif
+#else
+    #define FE_API
+#endif
 
 namespace search_engine{
 

@@ -40,17 +40,17 @@ int main(){
     FileAPI FileAPIInstance;
     SearchAPI SearchAPIInstance;
     FileAPI::FileInfo fileArray[5]; // 구조체 배열을 선언합니다.
-    std::time_t currentTime = std::time(nullptr);
-    std::srand(static_cast<unsigned int>(currentTime));
+    time_t currentTime = time(nullptr);
+    srand(static_cast<unsigned int>(currentTime));
 
     for (int i = 0; i < 5; ++i) {
-        fileArray[i].name = "File" + std::to_string(rand());
-        fileArray[i].size = std::rand() % 100000; 
-        fileArray[i].is_directory = (std::rand() % 2 == 0);
-        fileArray[i].modified_time = currentTime + (std::rand() % 3600);
+        fileArray[i].name = "File" + to_string(rand());
+        fileArray[i].size = rand() % 100000; 
+        fileArray[i].is_directory = (rand() % 2 == 0);
+        fileArray[i].modified_time = currentTime + (rand() % 3600);
     } //랜덤 구조체 생성
     
-    std::srand(static_cast<unsigned int>(std::time(nullptr))); // 랜덤 시드 초기화
+    srand(static_cast<unsigned int>(time(nullptr))); // 랜덤 시드 초기화
     
     // 3가지 정렬함수로 정렬 후 검사
     // quick_sort check
@@ -140,7 +140,7 @@ int main(){
 
     //DFS, BFS 검사
     // 최소 3단계 깊이의 폴더 구조 생성
-    fs::path p = fs::current_path().string() + "/Algorithm/test";
+    fs::path p = fs::current_path() / ".." / "Algorithm" / "test";
     cout << "DFS test" << endl;
     cout << p.string() << " path search" << endl;
     SearchAPIInstance.dfs(p, "hi",KMP); //working
